@@ -1,0 +1,44 @@
+<!-- ref属性获取真实DOM节点，虚拟DOM是React的一个设计优势，可以极大地提高网页性能表现 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Demo 3</title>
+    <script src="build/react.js">
+
+    </script>
+    <script src="build/react-dom.js">
+
+    </script>
+    <script src="build/browser.min.js">
+
+    </script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      var Mycomponent = React.createClass({
+        handleClick: function() {
+          var a = this.refs.myTextInput.value;
+          var btnText = this.refs.btnText.value;
+          alert(a);
+          alert(btnText);
+        },
+
+        render: function() {
+          return (
+            <div>
+              <input type="text" ref="myTextInput" />
+              <input type="button" ref="btnText" id="btn" onClick={this.handleClick} value="Click here will focus in the input area" />
+            </div>
+          );
+        }
+      });
+
+      ReactDOM.render(
+        <Mycomponent />,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>

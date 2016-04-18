@@ -1,0 +1,47 @@
+<!-- 如果当前组件没有子节点，undefined;有一个，数据类型是object;
+有多个，数据类型是Array.
+React.Children不需要考虑这些情况 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Demo 3</title>
+    <script src="build/react.js">
+
+    </script>
+    <script src="build/react-dom.js">
+
+    </script>
+    <script src="build/browser.min.js">
+
+    </script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      var Navigation = React.createClass({
+        render:function() {
+          return (  //注意此处是圆括号不是花括号
+            <ul>
+              {
+                React.Children.map(this.props.children,function(child) {
+                  return <li>{child}</li>;
+                })
+              }
+            </ul>
+          );
+        }
+      });
+
+      ReactDOM.render(
+        <Navigation>
+          <span>HomePage</span>
+          <span>AboutUs</span>
+          <span>ContactUs</span>
+          <span>ContactUs</span>
+        </Navigation>,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>

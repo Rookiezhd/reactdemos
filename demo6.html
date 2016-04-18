@@ -1,0 +1,42 @@
+<!-- 如果当前组件没有子节点，undefined;有一个，数据类型是object;
+有多个，数据类型是Array.
+React.Children不需要考虑这些情况 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Demo 3</title>
+    <script src="build/react.js">
+
+    </script>
+    <script src="build/react-dom.js">
+
+    </script>
+    <script src="build/browser.min.js">
+
+    </script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      var Mytitle = React.createClass({
+        propTypes: {
+          title: React.PropTypes.string.isRequired,
+          name:React.PropTypes.oneOf(['sam','sijin']),
+          // React.PropTypes.array
+        },
+
+        render: function() {
+          return <h1>{ this.props.title }</h1>
+        }
+      });
+
+      var data = 123;
+      var name = 'nick';
+      ReactDOM.render(
+        <Mytitle title={data} name={name}/>,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>
