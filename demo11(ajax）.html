@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo 10</title>
+    <script src="build/react.js">
+
+    </script>
+    <script src="build/react-dom.js">
+
+    </script>
+    <script src="build/browser.min.js">
+
+    </script>
+    <script src="build/jquery.min.js">
+
+    </script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var UserGist = React.createClass({
+        getInitialState: function() {
+            return {
+                username:'',
+                lastGistUrl:'',
+                comments:'',
+                userId:''
+            }
+        },
+
+        componentDidMount: function() {
+//            $.get(this.props.source, function(result) {
+//                var lastGist = result[0];
+//                if(this.isMounted()) {
+//                    this.setState({
+//                        username:lastGist.owner.login,
+//                        lastGistUrl: lastGist.html_url
+//                    });
+//                }
+//            }.bind(this));
+            $.ajax({
+                method:'GET',
+                url: this.props.source,
+                dataType:'json'
+            }).done(function(result){
+                    var lastGist = result[0];
+                    if(this.isMounted()){
+                        this.setState({
+                            username:lastGist.owner.login,
+                            lastGistUrl:lastGist.html_url,
+                            comments:lastGist.comments,
+                            userId:lastGist.owner.id
+                        });
+                    }
+                }.bind(this));
+        },
+
+        render:function() {
+            return (
+                <div>
+                    {this.state.username}'s last gist is
+                    <a href={this.state.lastGistUrl} > here </a>.UserId is {this.state.userId}
+                    <br/>
+                    The comments number is {this.state.comments}
+                </div>
+            );
+        }
+    });
+
+    ReactDOM.render(
+        <UserGist source="https://api.github.com/users/octocat/gists" />,
+            document.getElementById('example')
+    );
+</script>
+</body>
+</html>
